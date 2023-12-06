@@ -1,125 +1,312 @@
-<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
-  <div>
-    <label for="hasDegree">Hai una laurea?</label>
-    <label>
+<div>
+  <form [formGroup]="anagraficaForm" (ngSubmit)="submitAnagraficaForm()">
+    <div>
+      <label for="nome">Nome</label>
       <input
-        type="radio"
-        id="hasDegree"
-        name="hasDegree"
-        [(ngModel)]="hasDegree"
-        value="true"
+        type="text"
+        id="nome"
+        formControlName="nome"
+        required
+        minlength="3"
+        maxlength="30"
+      />
+      <div
+        *ngIf="
+          anagraficaForm.get('nome')?.invalid &&
+          (anagraficaForm.get('nome')?.dirty ||
+            anagraficaForm.get('nome')?.touched)
+        "
+      >
+        <div *ngIf="anagraficaForm.get('nome')?.errors?.['required']">
+          Nome is required.
+        </div>
+        <div *ngIf="anagraficaForm.get('nome')?.errors?.['minlength']">
+          Nome must be at least 3 characters long.
+        </div>
+        <div *ngIf="anagraficaForm.get('nome')?.errors?.['maxlength']">
+          Nome cannot exceed 30 characters.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label for="cognome">Cognome</label>
+      <input
+        type="text"
+        id="cognome"
+        formControlName="cognome"
+        required
+        minlength="3"
+        maxlength="75"
+      />
+      <div
+        *ngIf="
+          anagraficaForm.get('cognome')?.invalid &&
+          (anagraficaForm.get('cognome')?.dirty ||
+            anagraficaForm.get('cognome')?.touched)
+        "
+      >
+        <div *ngIf="anagraficaForm.get('cognome')?.errors?.['required']">
+          Cognome is required.
+        </div>
+        <div *ngIf="anagraficaForm.get('cognome')?.errors?.['minlength']">
+          Cognome must be at least 3 characters long.
+        </div>
+        <div *ngIf="anagraficaForm.get('cognome')?.errors?.['maxlength']">
+          Cognome cannot exceed 75 characters.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label for="dataNascita">Data di nascita</label>
+      <input
+        type="date"
+        id="dataNascita"
+        formControlName="dataNascita"
         required
       />
-      Si
-    </label>
-    <label>
+      <div
+        *ngIf="
+          anagraficaForm.get('dataNascita')?.invalid &&
+          (anagraficaForm.get('dataNascita')?.dirty ||
+            anagraficaForm.get('dataNascita')?.touched)
+        "
+      >
+        <div *ngIf="anagraficaForm.get('dataNascita')?.errors?.['required']">
+          Data di nascita is required.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label for="luogoNascita">Luogo di nascita</label>
       <input
-        type="radio"
-        name="hasDegree"
-        [(ngModel)]="hasDegree"
-        value="false"
+        type="text"
+        id="luogoNascita"
+        formControlName="luogoNascita"
+        required
+        minlength="3"
+      />
+      <div
+        *ngIf="
+          anagraficaForm.get('luogoNascita')?.invalid &&
+          (anagraficaForm.get('luogoNascita')?.dirty ||
+            anagraficaForm.get('luogoNascita')?.touched)
+        "
+      >
+        <div *ngIf="anagraficaForm.get('luogoNascita')?.errors?.['required']">
+          Luogo di nascita is required.
+        </div>
+        <div *ngIf="anagraficaForm.get('luogoNascita')?.errors?.['minlength']">
+          Luogo di nascita must be at least 3 characters long.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label for="codiceFiscale">Codice fiscale</label>
+      <input
+        type="text"
+        id="codiceFiscale"
+        formControlName="codiceFiscale"
+        required
+        pattern="[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]"
+      />
+      <div
+        *ngIf="
+          anagraficaForm.get('codiceFiscale')?.invalid &&
+          (anagraficaForm.get('codiceFiscale')?.dirty ||
+            anagraficaForm.get('codiceFiscale')?.touched)
+        "
+      >
+        <div *ngIf="anagraficaForm.get('codiceFiscale')?.errors?.['required']">
+          Codice fiscale is required.
+        </div>
+        <div *ngIf="anagraficaForm.get('codiceFiscale')?.errors?.['pattern']">
+          Invalid codice fiscale format.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label for="sesso">Sesso</label>
+      <select id="sesso" formControlName="sesso" required>
+        <option value="">Select</option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+      </select>
+      <div
+        *ngIf="
+          anagraficaForm.get('sesso')?.invalid &&
+          (anagraficaForm.get('sesso')?.dirty ||
+            anagraficaForm.get('sesso')?.touched)
+        "
+      >
+        <div *ngIf="anagraficaForm.get('sesso')?.errors?.['required']">
+          Sesso is required.
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <label for="altezza">Altezza</label>
+      <input type="number" id="altezza" formControlName="altezza" />
+    </div>
+
+    <div>
+      <label for="nazionalita">Nazionalità</label>
+      <input
+        type="text"
+        id="nazionalita"
+        formControlName="nazionalita"
         required
       />
-      No
-    </label>
-  </div>
-
-  <div *ngIf="hasDegree === 'true'">
-    <fieldset ngModelGroup="degree">
-      <legend>Laurea</legend>
-      <div>
-        <label for="degree">Laurea:</label>
-        <select
-          id="degree"
-          name="degree"
-          [(ngModel)]="degree"
-          ngModel
-          #degreeModel="ngModel"
-        >
-          <option value="" disabled selected>Seleziona</option>
-          <option value="laurea1">Laurea 1</option>
-          <option value="laurea2">Laurea 2</option>
-        </select>
+      <div
+        *ngIf="
+          anagraficaForm.get('nazionalita')?.invalid &&
+          (anagraficaForm.get('nazionalita')?.dirty ||
+            anagraficaForm.get('nazionalita')?.touched)
+        "
+      >
+        <div *ngIf="anagraficaForm.get('nazionalita')?.errors?.['required']">
+          Nazionalità is required.
+        </div>
       </div>
+    </div>
 
-      <div>
-        <label for="inCorso">In Corso:</label>
+    <button type="submit" [disabled]="anagraficaForm.invalid">Submit</button>
+  </form>
+
+  <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+    <div>
+      <label for="hasDegree">Hai una laurea?</label>
+      <label>
         <input
-          type="checkbox"
-          id="inCorso"
-          name="inCorso"
-          [(ngModel)]="inCorso"
+          type="radio"
+          id="hasDegree"
+          name="hasDegree"
+          [(ngModel)]="hasDegree"
+          value="true"
+          required
         />
-      </div>
-
-      <div>
-        <label for="annoConseguimento">Anno conseguimento:</label>
+        Si
+      </label>
+      <label>
         <input
-          type="number"
-          id="annoConseguimento"
-          name="annoConseguimento"
-          [(ngModel)]="annoConseguimento"
-          [attr.disabled]="inCorso ? true : null"
-          max="2023"
-          min="1950"
+          type="radio"
+          name="hasDegree"
+          [(ngModel)]="hasDegree"
+          value="false"
+          required
         />
-      </div>
-    </fieldset>
-  </div>
+        No
+      </label>
+    </div>
 
-  <div>
-    <label for="diploma">Diploma:</label>
+    <div *ngIf="hasDegree === 'true'">
+      <fieldset ngModelGroup="degree">
+        <legend>Laurea</legend>
+        <div>
+          <label for="degree">Laurea:</label>
+          <select
+            id="degree"
+            name="degree"
+            [(ngModel)]="degree"
+            ngModel
+            #degreeModel="ngModel"
+          >
+            <option value="" disabled selected>Seleziona</option>
+            <option value="laurea1">Laurea 1</option>
+            <option value="laurea2">Laurea 2</option>
+          </select>
+        </div>
 
-    <select id="diploma" name="diploma" [(ngModel)]="diploma" ngModel required>
-      <option value="" disabled selected>Seleziona</option>
-      <option value="diploma1">Diploma 1</option>
-      <option value="diploma2">Diploma 2</option>
-    </select>
-  </div>
+        <div>
+          <label for="inCorso">In Corso:</label>
+          <input
+            type="checkbox"
+            id="inCorso"
+            name="inCorso"
+            [(ngModel)]="inCorso"
+          />
+        </div>
 
-  <div>
-    <label for="annoConseguimentoDiploma"
-      >Anno conseguimento (max '2023'):</label
-    >
-    <input
-      type="number"
-      id="annoConseguimentoDiploma"
-      name="annoConseguimentoDiploma"
-      [(ngModel)]="annoConseguimentoDiploma"
-      ngModel
-      required
-      max="2023"
-      min="1950"
-    />
-  </div>
+        <div>
+          <label for="annoConseguimento">Anno conseguimento:</label>
+          <input
+            type="number"
+            id="annoConseguimento"
+            name="annoConseguimento"
+            [(ngModel)]="annoConseguimento"
+            [attr.disabled]="inCorso ? true : null"
+            max="2023"
+            min="1950"
+          />
+        </div>
+      </fieldset>
+    </div>
 
-  <div>
-    <label for="certificazione">Certificazione:</label>
+    <div>
+      <label for="diploma">Diploma:</label>
 
-    <select
-      id="certificazione"
-      name="certificazione"
-      [(ngModel)]="certificazione"
-      ngModel
-    >
-      <option value="" disabled selected>Seleziona</option>
-      <option value="certificazione1">Certificazione 1</option>
-      <option value="certificazione2">Certificazione 2</option>
-    </select>
-  </div>
+      <select
+        id="diploma"
+        name="diploma"
+        [(ngModel)]="diploma"
+        ngModel
+        required
+      >
+        <option value="" disabled selected>Seleziona</option>
+        <option value="diploma1">Diploma 1</option>
+        <option value="diploma2">Diploma 2</option>
+      </select>
+    </div>
 
-  <div>
-    <label for="dataScadenza">Data scadenza:</label>
-    <input
-      type="date"
-      id="dataScadenza"
-      name="dataScadenza"
-      [(ngModel)]="dataScadenza"
-      ngModel
-    />
-  </div>
+    <div>
+      <label for="annoConseguimentoDiploma"
+        >Anno conseguimento (max '2023'):</label
+      >
+      <input
+        type="number"
+        id="annoConseguimentoDiploma"
+        name="annoConseguimentoDiploma"
+        [(ngModel)]="annoConseguimentoDiploma"
+        ngModel
+        required
+        max="2023"
+        min="1950"
+      />
+    </div>
 
-  <div class="buttons">
-    <button type="submit" [disabled]="myForm.invalid">Send</button>
-  </div>
-</form>
+    <div>
+      <label for="certificazione">Certificazione:</label>
+
+      <select
+        id="certificazione"
+        name="certificazione"
+        [(ngModel)]="certificazione"
+        ngModel
+      >
+        <option value="" disabled selected>Seleziona</option>
+        <option value="certificazione1">Certificazione 1</option>
+        <option value="certificazione2">Certificazione 2</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="dataScadenza">Data scadenza:</label>
+      <input
+        type="date"
+        id="dataScadenza"
+        name="dataScadenza"
+        [(ngModel)]="dataScadenza"
+        ngModel
+      />
+    </div>
+
+    <div class="buttons">
+      <button type="submit" [disabled]="myForm.invalid">Send</button>
+    </div>
+  </form>
+</div>
