@@ -1,0 +1,25 @@
+<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+  <div>
+    <label for="code">Product code:</label>
+    <input type="text" id="code" name="code" ngModel required minlength="3" #code="ngModel">
+    <span *ngIf="code.invalid && code.touched">Il product code deve essere almeno di 3 caratteri.</span>
+  </div>
+  <div>
+    <label for="name">Product name:</label>
+    <input type="text" id="name" name="name" ngModel>
+  </div>
+  <div>
+    <label for="qty">Product quantity:</label>
+    <input type="text" id="qty" name="qty" ngModel>
+  </div>
+  <fieldset ngModelGroup="price" >
+    <legend>Price List</legend>
+    <div>
+      <label for="price-book">Product pricebook:</label>
+      <input type="text" id="price-book" name="priceBook" ngModel>
+    </div>
+  </fieldset>
+  <div class="buttons">
+    <button type="submit">Send</button>
+  </div>
+</form>
