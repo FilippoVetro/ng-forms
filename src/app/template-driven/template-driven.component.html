@@ -1,25 +1,125 @@
 <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
   <div>
-    <label for="code">Product code:</label>
-    <input type="text" id="code" name="code" ngModel required minlength="3" #code="ngModel">
-    <span *ngIf="code.invalid && code.touched">Il product code deve essere almeno di 3 caratteri.</span>
+    <label for="hasDegree">Hai una laurea?</label>
+    <label>
+      <input
+        type="radio"
+        id="hasDegree"
+        name="hasDegree"
+        [(ngModel)]="hasDegree"
+        value="true"
+        required
+      />
+      Si
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="hasDegree"
+        [(ngModel)]="hasDegree"
+        value="false"
+        required
+      />
+      No
+    </label>
   </div>
+
+  <div *ngIf="hasDegree === 'true'">
+    <fieldset ngModelGroup="degree">
+      <legend>Laurea</legend>
+      <div>
+        <label for="degree">Laurea:</label>
+        <select
+          id="degree"
+          name="degree"
+          [(ngModel)]="degree"
+          ngModel
+          #degreeModel="ngModel"
+        >
+          <option value="" disabled selected>Seleziona</option>
+          <option value="laurea1">Laurea 1</option>
+          <option value="laurea2">Laurea 2</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="inCorso">In Corso:</label>
+        <input
+          type="checkbox"
+          id="inCorso"
+          name="inCorso"
+          [(ngModel)]="inCorso"
+        />
+      </div>
+
+      <div>
+        <label for="annoConseguimento">Anno conseguimento:</label>
+        <input
+          type="number"
+          id="annoConseguimento"
+          name="annoConseguimento"
+          [(ngModel)]="annoConseguimento"
+          [attr.disabled]="inCorso ? true : null"
+          max="2023"
+          min="1950"
+        />
+      </div>
+    </fieldset>
+  </div>
+
   <div>
-    <label for="name">Product name:</label>
-    <input type="text" id="name" name="name" ngModel>
+    <label for="diploma">Diploma:</label>
+
+    <select id="diploma" name="diploma" [(ngModel)]="diploma" ngModel required>
+      <option value="" disabled selected>Seleziona</option>
+      <option value="diploma1">Diploma 1</option>
+      <option value="diploma2">Diploma 2</option>
+    </select>
   </div>
+
   <div>
-    <label for="qty">Product quantity:</label>
-    <input type="text" id="qty" name="qty" ngModel>
+    <label for="annoConseguimentoDiploma"
+      >Anno conseguimento (max '2023'):</label
+    >
+    <input
+      type="number"
+      id="annoConseguimentoDiploma"
+      name="annoConseguimentoDiploma"
+      [(ngModel)]="annoConseguimentoDiploma"
+      ngModel
+      required
+      max="2023"
+      min="1950"
+    />
   </div>
-  <fieldset ngModelGroup="price" >
-    <legend>Price List</legend>
-    <div>
-      <label for="price-book">Product pricebook:</label>
-      <input type="text" id="price-book" name="priceBook" ngModel>
-    </div>
-  </fieldset>
+
+  <div>
+    <label for="certificazione">Certificazione:</label>
+
+    <select
+      id="certificazione"
+      name="certificazione"
+      [(ngModel)]="certificazione"
+      ngModel
+    >
+      <option value="" disabled selected>Seleziona</option>
+      <option value="certificazione1">Certificazione 1</option>
+      <option value="certificazione2">Certificazione 2</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="dataScadenza">Data scadenza:</label>
+    <input
+      type="date"
+      id="dataScadenza"
+      name="dataScadenza"
+      [(ngModel)]="dataScadenza"
+      ngModel
+    />
+  </div>
+
   <div class="buttons">
-    <button type="submit">Send</button>
+    <button type="submit" [disabled]="myForm.invalid">Send</button>
   </div>
 </form>

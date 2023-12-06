@@ -1,3 +1,20 @@
-input.ng-dirty.ng-invalid, input.ng-touched.ng-invalid {
+input.ng-dirty.ng-invalid,
+input.ng-touched.ng-invalid {
   border: 1px solid #e01c1c;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+div {
+  align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
