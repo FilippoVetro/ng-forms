@@ -174,8 +174,6 @@
         </div>
       </div>
     </div>
-
-    <button type="submit" [disabled]="anagraficaForm.invalid">Submit</button>
   </form>
 
   <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
@@ -306,7 +304,13 @@
     </div>
 
     <div class="buttons">
-      <button type="submit" [disabled]="myForm.invalid">Send</button>
+      <button
+        type="submit"
+        [disabled]="myForm.invalid"
+        [disabled]="anagraficaForm.invalid"
+      >
+        Send
+      </button>
     </div>
   </form>
 </div>
