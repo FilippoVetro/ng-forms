@@ -6,8 +6,9 @@ import { TemplateDrivenComponent } from './template-driven/template-driven.compo
 import { FormsModule } from '@angular/forms';
 
 import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
-  declarations: [AppComponent, TemplateDrivenComponent, ],
+  declarations: [AppComponent, TemplateDrivenComponent],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],

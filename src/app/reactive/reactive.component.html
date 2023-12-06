@@ -1,0 +1,113 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="hasDegree">Hai una laurea?</label>
+    <label>
+      <input
+        type="radio"
+        id="hasDegree"
+        name="hasDegree"
+        formControlName="hasDegree"
+        value="true"
+        required
+      />
+      Si
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="hasDegree"
+        formControlName="hasDegree"
+        value="false"
+        required
+      />
+      No
+    </label>
+  </div>
+
+  <div *ngIf="myForm.get('hasDegree')?.value === 'true'">
+    <fieldset formGroupName="degree">
+      <legend>Laurea</legend>
+      <div>
+        <label for="degree">Laurea:</label>
+        <select id="degree" name="degree" formControlName="type">
+          <option value="" disabled selected>Seleziona</option>
+          <option value="laurea1">Laurea 1</option>
+          <option value="laurea2">Laurea 2</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="inCorso">In Corso:</label>
+        <input
+          type="checkbox"
+          id="inCorso"
+          name="inCorso"
+          formControlName="inCorso"
+        />
+      </div>
+
+      <div>
+        <label for="annoConseguimento">Anno conseguimento:</label>
+        <input
+          type="number"
+          id="annoConseguimento"
+          name="annoConseguimento"
+          formControlName="annoConseguimento"
+          [attr.disabled]="myForm.get('degree.inCorso')?.value ? true : null"
+          max="2023"
+          min="1950"
+        />
+      </div>
+    </fieldset>
+  </div>
+
+  <div>
+    <label for="diploma">Diploma:</label>
+    <select id="diploma" name="diploma" formControlName="diploma">
+      <option value="" disabled selected>Seleziona</option>
+      <option value="diploma1">Diploma 1</option>
+      <option value="diploma2">Diploma 2</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="annoConseguimentoDiploma"
+      >Anno conseguimento (max '2023'):</label
+    >
+    <input
+      type="number"
+      id="annoConseguimentoDiploma"
+      name="annoConseguimentoDiploma"
+      formControlName="annoConseguimentoDiploma"
+      max="2023"
+      min="1950"
+    />
+  </div>
+
+  <div>
+    <label for="certificazione">Certificazione:</label>
+    <select
+      id="certificazione"
+      name="certificazione"
+      formControlName="certificazione"
+    >
+      <option value="" disabled selected>Seleziona</option>
+      <option value="certificazione1">Certificazione 1</option>
+      <option value="certificazione2">Certificazione 2</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="dataScadenza">Data scadenza:</label>
+    <input
+      type="date"
+      id="dataScadenza"
+      name="dataScadenza"
+      formControlName="dataScadenza"
+    />
+  </div>
+
+  <div class="buttons">
+    <button type="submit" [disabled]="myForm.invalid">Send</button>
+  </div>
+</form>
