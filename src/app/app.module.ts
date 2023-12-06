@@ -3,17 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { TemplateDrivenComponent } from './template-driven/template-driven.component';
-import {FormsModule} from "@angular/forms";
-
+import { FormsModule } from '@angular/forms';
+import { AnagraficaComponent } from './anagrafica/anagrafica.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-  declarations: [
-    AppComponent,
-    TemplateDrivenComponent
-  ],
-  imports: [
-    BrowserModule, FormsModule
-  ],
+  declarations: [AppComponent, TemplateDrivenComponent, AnagraficaComponent],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
